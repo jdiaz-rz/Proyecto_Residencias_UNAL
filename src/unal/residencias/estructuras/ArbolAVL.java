@@ -58,7 +58,23 @@ public class ArbolAVL {
                 return nodo; 
             }
         }
-        return nodo;
+        
+        nodo.altura = 1 + max(altura(nodo.izquierdo), altura(nodo.derecho));
+            int balance = getBalance(nodo);
+
+            if (balance > 1 && estudiante.getPuntajeSocioeconomico() < nodo.izquierdo.estudiante.getPuntajeSocioeconomico())
+                return rotacionDerecha(nodo);
+            if (balance < -1 && estudiante.getPuntajeSocioeconomico() > nodo.derecho.estudiante.getPuntajeSocioeconomico())
+                return rotacionIzquierda(nodo);
+            if (balance > 1 && estudiante.getPuntajeSocioeconomico() > nodo.izquierdo.estudiante.getPuntajeSocioeconomico()) {
+                nodo.izquierdo = rotacionIzquierda(nodo.izquierdo);
+                return rotacionDerecha(nodo);
+            }
+            if (balance < -1 && estudiante.getPuntajeSocioeconomico() < nodo.derecho.estudiante.getPuntajeSocioeconomico()) {
+                nodo.derecho = rotacionDerecha(nodo.derecho);
+                return rotacionIzquierda(nodo);
+            }
+            return nodo;
     }
     
 
