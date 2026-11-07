@@ -37,4 +37,29 @@ public class ArbolAVL {
         y.altura = max(altura(y.izquierdo), altura(y.derecho)) + 1;
         return y;
     }
+
+    public void insertar(Estudiante estudiante) {
+        raiz = insertarRecursivo(raiz, estudiante);
+    }
+
+    private NodoAVL insertarRecursivo(NodoAVL nodo, Estudiante estudiante) {
+        if (nodo == null) return new NodoAVL(estudiante);
+
+        if (estudiante.getPuntajeSocioeconomico() < nodo.estudiante.getPuntajeSocioeconomico()) {
+            nodo.izquierdo = insertarRecursivo(nodo.izquierdo, estudiante);
+        } else if (estudiante.getPuntajeSocioeconomico() > nodo.estudiante.getPuntajeSocioeconomico()) {
+            nodo.derecho = insertarRecursivo(nodo.derecho, estudiante);
+        } else {
+            if (estudiante.getId().compareTo(nodo.estudiante.getId()) < 0) {
+                nodo.izquierdo = insertarRecursivo(nodo.izquierdo, estudiante);
+            } else if (estudiante.getId().compareTo(nodo.estudiante.getId()) > 0) {
+                nodo.derecho = insertarRecursivo(nodo.derecho, estudiante);
+            } else {
+                return nodo; 
+            }
+        }
+        return nodo;
+    }
+    
+
 }
