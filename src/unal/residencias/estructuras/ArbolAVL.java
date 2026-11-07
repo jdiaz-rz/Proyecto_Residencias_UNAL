@@ -17,4 +17,14 @@ public class ArbolAVL {
     private int getBalance(NodoAVL n) {
         return n == null ? 0 : altura(n.izquierdo) - altura(n.derecho);
     }
+
+  private NodoAVL rotacionDerecha(NodoAVL y) {
+        NodoAVL x = y.izquierdo;
+        NodoAVL T2 = x.derecho;
+        x.derecho = y;
+        y.izquierdo = T2;
+        y.altura = max(altura(y.izquierdo), altura(y.derecho)) + 1;
+        x.altura = max(altura(x.izquierdo), altura(x.derecho)) + 1;
+        return x;
+    }
 }
