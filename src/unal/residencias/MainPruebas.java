@@ -21,6 +21,13 @@ public class MainPruebas {
             long endInsert = System.nanoTime();
             double tiempoInsertMs = (endInsert - startInsert) / 1_000_000.0;
             System.out.println("Tiempo total Inserción AVL: " + tiempoInsertMs + " ms");
+
+            int cuposSimulados = 500; 
+            long startAsignacion = System.nanoTime();
+            gestor.simularAsignacion(cuposSimulados);
+            long endAsignacion = System.nanoTime();
+            double tiempoAsignMs = (endAsignacion - startAsignacion) / 1_000_000.0;
+            System.out.println("Tiempo Extracción de " + cuposSimulados + " cupos: " + tiempoAsignMs + " ms");
         }
     }
 }
