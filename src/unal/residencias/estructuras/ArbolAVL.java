@@ -27,4 +27,14 @@ public class ArbolAVL {
         x.altura = max(altura(x.izquierdo), altura(x.derecho)) + 1;
         return x;
     }
+
+  private NodoAVL rotacionIzquierda(NodoAVL x) {
+        NodoAVL y = x.derecho;
+        NodoAVL T2 = y.izquierdo;
+        y.izquierdo = x;
+        x.derecho = T2;
+        x.altura = max(altura(x.izquierdo), altura(x.derecho)) + 1;
+        y.altura = max(altura(y.izquierdo), altura(y.derecho)) + 1;
+        return y;
+    }
 }
