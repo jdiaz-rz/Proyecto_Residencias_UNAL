@@ -77,5 +77,14 @@ public class ArbolAVL {
             return nodo;
     }
     
+    public void extraerMinimos(int cantidad, List<Estudiante> asignados) {
+        extraerMinimosRecursivo(raiz, cantidad, asignados);
+    }
 
+    private void extraerMinimosRecursivo(NodoAVL nodo, int cantidad, List<Estudiante> asignados) {
+        if (nodo == null || asignados.size() >= cantidad) return;
+        extraerMinimosRecursivo(nodo.izquierdo, cantidad, asignados);
+        if (asignados.size() < cantidad) asignados.add(nodo.estudiante);
+        extraerMinimosRecursivo(nodo.derecho, cantidad, asignados);
+    }
 }
