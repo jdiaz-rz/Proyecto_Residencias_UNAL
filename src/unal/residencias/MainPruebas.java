@@ -13,6 +13,14 @@ public class MainPruebas {
             System.out.println("Preparando entorno para N = " + tamaño + " estudiantes...");
             List<Estudiante> mockupData = GeneradorDatos.generarMockupData(tamaño);
             GestorResidencias gestor = new GestorResidencias();
+
+            long startInsert = System.nanoTime();
+            for (Estudiante e : mockupData) {
+                gestor.registrarEstudianteMasivo(e);
+            }    
+            long endInsert = System.nanoTime();
+            double tiempoInsertMs = (endInsert - startInsert) / 1_000_000.0;
+            System.out.println("Tiempo total Inserción AVL: " + tiempoInsertMs + " ms");
         }
     }
 }
