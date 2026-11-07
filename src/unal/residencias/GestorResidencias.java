@@ -11,4 +11,14 @@ public class GestorResidencias {
     public GestorResidencias() {
         this.arbol = new ArbolAVL();
     }
+
+  public void registrarEstudianteMasivo(Estudiante estudiante) {
+        arbol.insertar(estudiante);
+    }
+
+    public List<Estudiante> simularAsignacion(int cupos) {
+        List<Estudiante> asignados = new ArrayList<>();
+        arbol.extraerMinimos(cupos, asignados);
+        return asignados;
+    }
 }
