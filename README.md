@@ -28,15 +28,19 @@ El código fuente está organizado en los siguientes paquetes para separar la l�
 Residencias-UNAL/
 ├── .gitignore
 ├── README.md
+├── analisis_avl.csv                      # Resultados exportados del rendimiento empírico (AVL)
+├── analisis_lista.csv                    # Resultados exportados del rendimiento empírico (Lista Dinámica)
 └── src/
     └── unal/
         └── residencias/
             ├── Estudiante.java               # Entidad modelo del estudiante
-            ├── GestorResidencias.java        # Orquestador de la lógica y requisitos (RF1-RF8)
+            ├── GestorResidencias.java        # Orquestador de la lógica de negocio (sin librerías nativas de colecciones)
             ├── Main.java                     # Punto de entrada interactivo básico
-            ├── MainPruebas.java              # Script de análisis de rendimiento empírico (10^4 a 10^6 datos)
+            ├── MainPruebasAVL.java           # Script de análisis de rendimiento empírico del Árbol AVL (10^4 a 10^6)
+            ├── MainPruebasLista.java         # Script de análisis de rendimiento empírico de la Lista custom
             ├── estructuras/
-                ├── NodoAVL.java              # Nodo con control de altura para el factor de balance
-                └── ArbolAVL.java             # Árbol AVL implementado desde cero con auto-balanceo O(log n)
+            │   ├── ArbolAVL.java             # Árbol AVL implementado desde cero con auto-balanceo O(log n)
+            │   ├── ListaDinamica.java        # Estructura customizada (reemplazo manual de java.util.ArrayList)
+            │   └── NodoAVL.java              # Nodo con control de altura para el factor de balance
             └── utils/
-                └── GeneradorDatos.java       # Generador de Mockup Data aleatoria para las pruebas
+                └── GeneradorDatos.java       # Generador de Mockup Data aleatoria para pruebas masivas
