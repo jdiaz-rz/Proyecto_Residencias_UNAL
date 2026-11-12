@@ -45,6 +45,7 @@ public class ArbolAVL {
     private NodoAVL insertarRecursivo(NodoAVL nodo, Estudiante estudiante) {
         if (nodo == null) return new NodoAVL(estudiante);
 
+        // 1. Inserción normal de BST (con desempate por ID)
         if (estudiante.getPuntajeSocioeconomico() < nodo.estudiante.getPuntajeSocioeconomico()) {
             nodo.izquierdo = insertarRecursivo(nodo.izquierdo, estudiante);
         } else if (estudiante.getPuntajeSocioeconomico() > nodo.estudiante.getPuntajeSocioeconomico()) {
@@ -55,26 +56,39 @@ public class ArbolAVL {
             } else if (estudiante.getId().compareTo(nodo.estudiante.getId()) > 0) {
                 nodo.derecho = insertarRecursivo(nodo.derecho, estudiante);
             } else {
-                return nodo; 
+                return nodo; // Duplicado exacto (no debería pasar por el UUID)
             }
         }
-        
-        nodo.altura = 1 + max(altura(nodo.izquierdo), altura(nodo.derecho));
-            int balance = getBalance(nodo);
 
-            if (balance > 1 && estudiante.getPuntajeSocioeconomico() < nodo.izquierdo.estudiante.getPuntajeSocioeconomico())
-                return rotacionDerecha(nodo);
-            if (balance < -1 && estudiante.getPuntajeSocioeconomico() > nodo.derecho.estudiante.getPuntajeSocioeconomico())
-                return rotacionIzquierda(nodo);
-            if (balance > 1 && estudiante.getPuntajeSocioeconomico() > nodo.izquierdo.estudiante.getPuntajeSocioeconomico()) {
-                nodo.izquierdo = rotacionIzquierda(nodo.izquierdo);
-                return rotacionDerecha(nodo);
-            }
-            if (balance < -1 && estudiante.getPuntajeSocioeconomico() < nodo.derecho.estudiante.getPuntajeSocioeconomico()) {
-                nodo.derecho = rotacionDerecha(nodo.derecho);
-                return rotacionIzquierda(nodo);
-            }
-            return nodo;
+        // 2. Actualizar altura
+        nodo.altura = 1 + max(altura(nodo.izquierdo), altura(nodo.derecho));
+
+        // 3. Obtener factor de balance
+        int balance = getBalance(nodo);
+
+        // 4. Lógica de balanceo a prueba de empates (basada en el estado del hijo)
+
+        // Caso Izquierda - Izquierda
+        if (balance > 1 && getBalance(nodo.izquierdo) >= 0)
+            return rotacionDerecha(nodo);
+
+        // Caso Izquierda - Derecha
+        if (balance > 1 && getBalance(nodo.izquierdo) < 0) {
+            nodo.izquierdo = rotacionIzquierda(nodo.izquierdo);
+            return rotacionDerecha(nodo);
+        }
+
+        // Caso Derecha - Derecha
+        if (balance < -1 && getBalance(nodo.derecho) <= 0)
+            return rotacionIzquierda(nodo);
+
+        // Caso Derecha - Izquierda
+        if (balance < -1 && getBalance(nodo.derecho) > 0) {
+            nodo.derecho = rotacionDerecha(nodo.derecho);
+            return rotacionIzquierda(nodo);
+        }
+
+        return nodo;
     }
 
     public void extraerMinimos(int cantidad, ListaDinamica asignados) {

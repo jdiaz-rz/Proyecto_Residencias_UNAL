@@ -1,0 +1,4 @@
+Tamaño(N),TiempoInsercionTotal_ms,TiempoAccesoTotal_ms
+10000,91.2394,0.3005
+100000,93.3446,0.2088
+1000000,534.5855,1.0E-4
