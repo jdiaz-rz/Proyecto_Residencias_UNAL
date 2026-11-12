@@ -1,7 +1,7 @@
 package unal.residencias;
 
 import unal.residencias.utils.GeneradorDatos;
-import java.util.List;
+import unal.residencias.estructuras.ListaDinamica;
 
 public class MainPruebas {
     public static void main(String[] args) {
@@ -11,13 +11,13 @@ public class MainPruebas {
         for (int tamaño : tamaños) {
             System.out.println("\n--------------------------------------------------");
             System.out.println("Preparando entorno para N = " + tamaño + " estudiantes...");
-            List<Estudiante> mockupData = GeneradorDatos.generarMockupData(tamaño);
+            ListaDinamica mockupData = GeneradorDatos.generarMockupData(tamaño);
             GestorResidencias gestor = new GestorResidencias();
 
             long startInsert = System.nanoTime();
-            for (Estudiante e : mockupData) {
-                gestor.registrarEstudianteMasivo(e);
-            }    
+            for (int i = 0; i < mockupData.tamaño(); i++) {
+                gestor.registrarEstudianteMasivo(mockupData.obtener(i));
+            }
             long endInsert = System.nanoTime();
             double tiempoInsertMs = (endInsert - startInsert) / 1_000_000.0;
             System.out.println("Tiempo total Inserción AVL: " + tiempoInsertMs + " ms");

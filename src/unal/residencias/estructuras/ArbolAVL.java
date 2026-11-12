@@ -1,7 +1,7 @@
 package unal.residencias.estructuras;
 
 import unal.residencias.Estudiante;
-import java.util.List;
+import unal.residencias.estructuras.ListaDinamica;
 
 public class ArbolAVL {
   private NodoAVL raiz;
@@ -76,15 +76,20 @@ public class ArbolAVL {
             }
             return nodo;
     }
-    
-    public void extraerMinimos(int cantidad, List<Estudiante> asignados) {
+
+    public void extraerMinimos(int cantidad, ListaDinamica asignados) {
         extraerMinimosRecursivo(raiz, cantidad, asignados);
     }
 
-    private void extraerMinimosRecursivo(NodoAVL nodo, int cantidad, List<Estudiante> asignados) {
-        if (nodo == null || asignados.size() >= cantidad) return;
+    private void extraerMinimosRecursivo(NodoAVL nodo, int cantidad, ListaDinamica asignados) {
+        if (nodo == null || asignados.tamaño() >= cantidad) return;
+
         extraerMinimosRecursivo(nodo.izquierdo, cantidad, asignados);
-        if (asignados.size() < cantidad) asignados.add(nodo.estudiante);
+
+        if (asignados.tamaño() < cantidad) {
+            asignados.agregar(nodo.estudiante);
+        }
+
         extraerMinimosRecursivo(nodo.derecho, cantidad, asignados);
     }
 }
